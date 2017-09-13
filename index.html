@@ -1,30 +1,49 @@
 <!doctype html>
 
 <html>
-	<head>
-		<title>Course List Generator</title>
-		<meta charset="UTF-8">
-		<meta name="viewport" content="initial-scale=1.0">
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.0.10/handlebars.min.js"></script>
-        <script src="scripts.js"></script>
-	</head>
 
-	<body>
-        <form id="courseFilters" onsubmit="return false;">
-            <h1>Course List Generator</h1>
-            <h2>Domain</h2>
-            <input type="radio" name="domain" value="online" id="online" onchange="updateSemesters()">
-            <label for="online">Online</label>
-            <input type="radio" name="domain" value="capmus" id="capmus" onchange="updateSemesters()">
-            <label for="capmus">Campus</label>
-            <input type="radio" name="domain" value="ldsbc" id="ldsbc" onchange="updateSemesters()">
-            <label for="ldsbc">LDSBC</label>
-            <input type="radio" name="domain" value="dev" id="dev" onchange="updateSemesters()">
-            <label for="dev">Dev</label>
-            <h2>Semester</h2>
-            <select id="semesterList" form="courseFilters" name="semester" required="true" disabled>
+<head>
+  <title>Course List Generator</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="initial-scale=1.0">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.0.10/handlebars.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/async/2.5.0/async.min.js"></script>
+  <script src="scripts.js"></script>
+  <script id="course-display" type="text/x-handlebars-template">
+    <div class="entry">
+      <span class="ou">{{courseOu}}</span><span class="name">{{courseName}}</span>
+    </div>
+  </script>
+  <style>
+    .entry {
+      margin: 5px, 0;
+    }
+
+    span.ou {
+      margin-right: 10px;
+    }
+
+  </style>
+</head>
+
+<body>
+  <form id="courseFilters" onsubmit="return false;">
+    <h1>Course List Generator</h1>
+    <h2>Domain</h2>
+    <input type="radio" name="domain" value="online" id="online" onchange="updateSemesters()">
+    <label for="online">Online</label>
+    <input type="radio" name="domain" value="capmus" id="capmus" onchange="updateSemesters()">
+    <label for="capmus">Campus</label>
+    <input type="radio" name="domain" value="ldsbc" id="ldsbc" onchange="updateSemesters()">
+    <label for="ldsbc">LDSBC</label>
+    <input type="radio" name="domain" value="dev" id="dev" onchange="updateSemesters()">
+    <label for="dev">Dev</label>
+    <h2>Semester</h2>
+    <select id="semesterList" form="courseFilters" name="semester" required="true" disabled>
             </select>
-            <button onclick="querySemester()">Submit</button>
-        </form>
-	</body>
+    <button onclick="getCourses()">Submit</button>
+  </form>
+  <div id="courseContainer"></div>
+</body>
+
 </html>
